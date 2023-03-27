@@ -1,0 +1,98 @@
+!<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+ <div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <form id="signup-form">
+        <div class="mb-3">
+          <label for="name" class="form-label">Full Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+          <div class="form-text">Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.</div>
+        </div>
+        <div class="mb-3">
+          <label for="password-confirm" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="password-confirm" name="password-confirm" required>
+          <div id="password-match" class="form-text"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+
+const form = document.querySelector('#signup-form');
+const passwordInput = form.querySelector('#password');
+const confirmPasswordInput = form.querySelector('#password-confirm');
+const passwordMatchMessage = form.querySelector('#password-match');
+
+// Check if passwords match and update message
+function checkPasswordMatch() {
+  if (passwordInput.value === confirmPasswordInput.value) {
+    passwordMatchMessage.textContent = 'Passwords match';
+    passwordMatchMessage.classList.add('text-success');
+    passwordMatchMessage.classList.remove('text-danger');
+  } else {
+    passwordMatchMessage.textContent = 'Passwords do not match';
+    passwordMatchMessage.classList.add('text-danger');
+    passwordMatchMessage.classList.remove('text-success');
+  }
+}
+
+// Listen for password input and check for uppercase, lowercase, and special characters
+passwordInput.addEventListener('input', () => {
+  const password = passwordInput.value;
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+  const hasValidLength = password.length >= 8;
+  if (hasUppercase && hasLowercase && hasSpecialChar && hasValidLength) {
+    passwordInput.setCustomValidity('');
+  } else {
+    passwordInput.setCustomValidity('Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.');
+  }
+  checkPasswordMatch();
+});
+
+// Listen for confirm password input and check if passwords match
+confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+
+</script>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
